@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "610715234535",
+    "project_id": "millonario-firebase-655dc",
+    "storage_bucket": "millonario-firebase-655dc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610715234535:android:0affa415c4633f65597242",
+        "android_client_info": {
+          "package_name": "com.example.millonariofirebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBODi4MSP2I-t4GChpr-gYNd0R2Xx8uTdk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
