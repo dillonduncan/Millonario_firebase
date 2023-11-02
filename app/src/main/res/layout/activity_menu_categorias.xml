@@ -15,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/baseline_edit_note_24"/>
+
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="300dp"
@@ -22,95 +23,48 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logomillonario"/>
-    <LinearLayout
+        app:srcCompat="@drawable/logomillonario" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:text="Categorias de Preguntas"
+        android:textColor="#fff"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/rvCategorias"
+        app:layout_constraintEnd_toEndOf="@+id/rvCategorias"
+        app:layout_constraintStart_toStartOf="@+id/rvCategorias" />
+
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:paddingTop="5dp"
+        android:text="Comenzar"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/rvCategorias"
+        app:layout_constraintStart_toStartOf="@id/rvCategorias"
+        app:layout_constraintTop_toBottomOf="@+id/rvCategorias" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCategorias"
+        android:layout_width="409dp"
+        android:layout_height="330dp"
+        android:layout_marginTop="20dp"
+        android:paddingStart="10dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="10dp"
+        android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2">
-        <TextView
-             android:layout_marginTop="5dp"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Categorias de Preguntas"
-            android:textSize="23sp"
-            android:textStyle="bold"
-            android:textColor="#fff"/>
-        <CheckBox
-            android:id="@+id/chk1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="10dp"
-            android:text="CheckBox"
-            android:textColor="#fff"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-        <CheckBox
-            android:id="@+id/chk2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="10dp"
-            android:text="CheckBox"
-            android:textColor="#fff"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        tools:listitem="@layout/ly_mostrar_categorias" />
 
-        <CheckBox
-            android:id="@+id/chk3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="10dp"
-            android:text="CheckBox"
-            android:textColor="#fff"
-            android:textSize="20sp"
-            android:textStyle="bold" />
 
-        <CheckBox
-            android:id="@+id/chk4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="10dp"
-            android:text="CheckBox"
-            android:textColor="#fff"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <CheckBox
-            android:id="@+id/chk5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="10dp"
-            android:text="CheckBox"
-            android:textColor="#fff"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Comenzar"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:paddingTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"/>
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
