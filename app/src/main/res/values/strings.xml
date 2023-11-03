@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Millonario firebase</string>
+    <string name="text_textView">Agregar</string>
 </resources>

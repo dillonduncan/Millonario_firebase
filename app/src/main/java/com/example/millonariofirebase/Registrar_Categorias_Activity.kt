@@ -77,9 +77,6 @@ class Registrar_Categorias_Activity : AppCompatActivity(), CategoriaRegistroList
                 var listCategorias: MutableList<Categorias> = mutableListOf()
                 snapshot.children.forEach { snap ->
                     listCategorias.add(snap.getValue(Categorias::class.java) ?: Categorias("", ""))
-                    /*var categoria = snap.getValue(Categorias::class.java)
-                    Toast.makeText(this@Registrar_Categorias_Activity, "${categoria!!.nombre}", Toast.LENGTH_SHORT).show()*/
-                    //listCategorias.add(categoria!!.nombre)
                 }
                 lifecycleScope.launch {
                     adaptador = AdaptadorCategoriasRegistro(
@@ -88,18 +85,10 @@ class Registrar_Categorias_Activity : AppCompatActivity(), CategoriaRegistroList
                     )
                     binding.rvCategoriasRegistro.adapter = adaptador
                 }
-
             }
-
             override fun onCancelled(error: DatabaseError) {
             }
         })
-        /*listCategorias.forEach {
-            Toast.makeText(this, "${it.nombre}", Toast.LENGTH_SHORT).show()
-        }*/
-        /*  listCategorias.forEach {
-              Toast.makeText(this, "$it", Toast.LENGTH_SHORT).show()
-          }*/
     }
     fun ActualizarCategoria(categorias: Categorias){
         var id=categorias.id
@@ -113,7 +102,6 @@ class Registrar_Categorias_Activity : AppCompatActivity(), CategoriaRegistroList
         categoriasRef.child(id).removeValue()
         GetCategorias()
     }
-
     override fun onEditItemClick(categorias: Categorias) {
         binding.btnAgregarCategoria.setText("Actualizar")
         this.categorias=categorias
