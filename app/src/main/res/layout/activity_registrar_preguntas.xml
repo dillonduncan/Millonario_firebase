@@ -32,18 +32,21 @@
          >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtPreunta"
+            android:id="@+id/edtPregunta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:hint="Pregunta"
             android:textColor="@color/white"
-            android:textColorHint="@color/white" />
+            android:textColorHighlight="#fff"
+            android:textColorHint="@color/white"
+            android:textColorLink="#fff" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Spinner
         android:id="@+id/spCategorias"
+        style="@style/colorTextSpinner"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginStart="15dp"
@@ -51,8 +54,7 @@
         android:layout_marginEnd="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-       />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout9"

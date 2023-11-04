@@ -23,7 +23,7 @@ class Registrar_Categorias_Activity : AppCompatActivity(), CategoriaRegistroList
     lateinit var adaptador: AdaptadorCategoriasRegistro
     lateinit var categoriasRef: DatabaseReference
     lateinit var categorias: Categorias
-    var idActualizar:String=""
+    var idActualizar: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegistrarCategoriasBinding.inflate(layoutInflater)
@@ -59,18 +59,25 @@ class Registrar_Categorias_Activity : AppCompatActivity(), CategoriaRegistroList
             ).show()
             LimpiarCampos()
             GetCategorias()
-        }else if (binding.btnAgregarCategoria.text.equals("Actualizar")){
-            ActualizarCategoria(Categorias(idActualizar,binding.edtNombreCategoria.text.toString()))
+        } else if (binding.btnAgregarCategoria.text.equals("Actualizar")) {
+            ActualizarCategoria(
+                Categorias(
+                    idActualizar,
+                    binding.edtNombreCategoria.text.toString()
+                )
+            )
         }
     }
-    fun LimpiarCampos(){
-        categorias.id=""
-        categorias.nombre=""
+
+    fun LimpiarCampos() {
+        categorias.id = ""
+        categorias.nombre = ""
         binding.edtNombreCategoria.setText("")
-        if (binding.btnAgregarCategoria.text!!.equals("Actualizar")){
+        if (binding.btnAgregarCategoria.text!!.equals("Actualizar")) {
             binding.btnAgregarCategoria.setText("Agregar")
         }
     }
+
     fun GetCategorias() {
         categoriasRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -86,26 +93,30 @@ class Registrar_Categorias_Activity : AppCompatActivity(), CategoriaRegistroList
                     binding.rvCategoriasRegistro.adapter = adaptador
                 }
             }
+
             override fun onCancelled(error: DatabaseError) {
             }
         })
     }
-    fun ActualizarCategoria(categorias: Categorias){
-        var id=categorias.id
-        var Actlzcategoria=HashMap<String, Any>()
-        Actlzcategoria["nombre"]=categorias.nombre
+
+    fun ActualizarCategoria(categorias: Categorias) {
+        var id = categorias.id
+        var Actlzcategoria = HashMap<String, Any>()
+        Actlzcategoria["nombre"] = categorias.nombre
         categoriasRef.child(id).setValue(categorias)
-       LimpiarCampos()
+        LimpiarCampos()
     }
+
     override fun onDeleteItemClick(categorias: Categorias) {
         var id = "NiBo39wSdYD_vkTAAh4"
         categoriasRef.child(id).removeValue()
         GetCategorias()
     }
+
     override fun onEditItemClick(categorias: Categorias) {
         binding.btnAgregarCategoria.setText("Actualizar")
-        this.categorias=categorias
+        this.categorias = categorias
         binding.edtNombreCategoria.setText(this.categorias.nombre)
-        idActualizar="${this.categorias.id}"
+        idActualizar = "${this.categorias.id}"
     }
 }
