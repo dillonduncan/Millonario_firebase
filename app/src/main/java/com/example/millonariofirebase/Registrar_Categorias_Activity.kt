@@ -1,5 +1,6 @@
 package com.example.millonariofirebase
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -34,6 +35,7 @@ class Registrar_Categorias_Activity : AppCompatActivity(), CategoriaRegistroList
         binding.rvCategoriasRegistro.layoutManager = LinearLayoutManager(this)
         //  ObtenerCategorias()
         //GetCategorias()]
+        binding.btnRegistrarPreguntas.setOnClickListener { startActivity(Intent(this,Registrar_Preguntas_Activity::class.java)) }
         binding.btnAgregarCategoria.setOnClickListener {
             AgregarCategorias(
                 Categorias(

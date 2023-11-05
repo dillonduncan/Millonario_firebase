@@ -26,7 +26,6 @@ class Registrar_Preguntas_Activity : AppCompatActivity() {
     lateinit var categoriasRef: DatabaseReference
     lateinit var database: FirebaseDatabase
     lateinit var categoriaSelec: String
-    var listRespuestas:MutableList<Respuestas> = mutableListOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegistrarPreguntasBinding.inflate(layoutInflater)
@@ -54,6 +53,7 @@ class Registrar_Preguntas_Activity : AppCompatActivity() {
         if (binding.edtRespuestaMala3.text.isNullOrEmpty()){
             binding.edtRespuestaMala3.error="Campo obligatorio"
         }else if (binding.btnRegistrarPregunta.text.equals("Agregar")){
+            var listRespuestas:MutableList<Respuestas> = mutableListOf()
             listRespuestas.add(Respuestas("a",binding.edtRespuestaCorrecta.text.toString()))
             listRespuestas.add(Respuestas("b",binding.edtRespuestaMala1.text.toString()))
             listRespuestas.add(Respuestas("c",binding.edtRespuestaMala2.text.toString()))

@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.millonariofirebase.Adaptadores.AdaptadorCategorias
 import com.example.millonariofirebase.Adaptadores.AdaptadorCategoriasRegistro
 import com.example.millonariofirebase.Model.Categorias
+import com.example.millonariofirebase.Model.Preguntas
+import com.example.millonariofirebase.Model.Respuestas
 import com.example.millonariofirebase.databinding.ActivityMenuCategoriasBinding
 import com.example.millonariofirebase.databinding.ActivityRegistrarCategoriasBinding
 import com.google.firebase.database.DataSnapshot
@@ -54,6 +56,16 @@ class Menu_Categorias_Activity : AppCompatActivity() {
                                 ""
                             )
                         )
+                    }
+                    if (listCategorias.size<1){
+                        //registrar categorias
+                        val id1 = categoriasRef.push().key
+                        val categ1 = Categorias(id1!!, "Desportes")
+                        categoriasRef.child(id1!!).setValue(categ1)
+                        val id2 = categoriasRef.push().key
+                        val categ2 = Categorias(id2!!, "Matematicas")
+                        categoriasRef.child(id2!!).setValue(categ2)
+
                     }
                     lifecycleScope.launch {
                         adaptador = AdaptadorCategorias(
