@@ -3,6 +3,7 @@ package com.example.millonariofirebase
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.millonariofirebase.Adaptadores.AdaptadorCategorias
@@ -18,6 +19,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.launch
+import kotlin.random.Random
+import kotlin.random.nextInt
 
 class Menu_Categorias_Activity : AppCompatActivity() {
     lateinit var binding: ActivityMenuCategoriasBinding
@@ -32,10 +35,20 @@ class Menu_Categorias_Activity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance()
         categoriasRef = database.getReference("Categorias")
         binding.txtCategAdd.setOnClickListener { CambiarRegistroCategorias() }
-        binding.btnRegistrarCategorias.setOnClickListener {CambiarRegistroCategorias()}
+        binding.btnRegistrarCategorias.setOnClickListener { CambiarRegistroCategorias() }
         ObtenerCategorias()
         binding.txtPreguntAdd.setOnClickListener { CambiarRegistroPreguntas() }
         binding.btnRegistrarPreguntas.setOnClickListener { CambiarRegistroPreguntas() }
+        binding.btnComenzar.setOnClickListener { PlayJuego() }
+
+    }
+
+    fun PlayJuego() {
+        if (listCategorias.size < 1) {
+            Toast.makeText(this, "Escoja una categoria", Toast.LENGTH_SHORT).show()
+        } else if (listCategorias.size > 0) {
+            startActivity(Intent(this, JuegoPlay_Activity::class.java))
+        }
     }
 
     fun CambiarRegistroCategorias() =
@@ -57,7 +70,7 @@ class Menu_Categorias_Activity : AppCompatActivity() {
                             )
                         )
                     }
-                    if (listCategorias.size<1){
+                    if (listCategorias.size < 1) {
                         //registrar categorias
                         val id1 = categoriasRef.push().key
                         val categ1 = Categorias(id1!!, "Desportes")
@@ -79,5 +92,9 @@ class Menu_Categorias_Activity : AppCompatActivity() {
                 }
             })
         }
+    }
+
+    companion object {
+        var listCategorias: MutableList<String> = mutableListOf()
     }
 }
