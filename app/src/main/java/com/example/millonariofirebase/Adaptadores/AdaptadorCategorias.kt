@@ -35,6 +35,8 @@ class AdaptadorCategorias(val listaCategorias: MutableList<Categorias>) :
                 ).show()
             }
         }
+
+        Menu_Categorias_Activity.listCategorias = mutableListOf()
     }
 
     inner class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {

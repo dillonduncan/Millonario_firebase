@@ -93,7 +93,6 @@ class Menu_Categorias_Activity : AppCompatActivity() {
             })
         }
     }
-
     companion object {
         var listCategorias: MutableList<String> = mutableListOf()
     }
