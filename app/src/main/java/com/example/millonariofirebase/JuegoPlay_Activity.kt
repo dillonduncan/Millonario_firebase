@@ -1,9 +1,13 @@
 package com.example.millonariofirebase
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.example.millonariofirebase.Model.Preguntas
@@ -22,6 +26,12 @@ class JuegoPlay_Activity : AppCompatActivity() {
     lateinit var binding: ActivityJuegoPlayBinding
     lateinit var preguntasRef: DatabaseReference
     lateinit var database: FirebaseDatabase
+    var num1 = 0
+    var num2 = 0
+    var num3 = 0
+    var num4 = 0
+    var money = 0
+    var respCorrect = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityJuegoPlayBinding.inflate(layoutInflater)
@@ -30,9 +40,7 @@ class JuegoPlay_Activity : AppCompatActivity() {
         preguntasRef = database.getReference("Preguntas")
         ObtenerPreguntasRest()
     }
-    fun MostrarPregunta(){
 
-    }
     fun ObtenerPreguntasRest() {
         lifecycleScope.launch {
             preguntasRef.addValueEventListener(object : ValueEventListener {
@@ -46,67 +54,107 @@ class JuegoPlay_Activity : AppCompatActivity() {
                             }
                         }
                     }
-                    var respSelect=""
                     var numalt = Random
                     var num = numalt.nextInt(1..listPreguntas.size)
-                    var respCorrect=listPreguntas[num].respuestCorrct
+                    respCorrect = listPreguntas[num].respuestCorrct
                     binding.apply {
                         txtPregunta.text = listPreguntas[num].pregunta
-                        txtOpcA.text = listPreguntas[num].listaOpciones[1].respuesta
-                        txtOpcB.text = listPreguntas[num].listaOpciones[0].respuesta
-                        txtOpcC.text = listPreguntas[num].listaOpciones[2].respuesta
-                        txtOpcD.text = listPreguntas[num].listaOpciones[3].respuesta
+                        num1 = numalt.nextInt(0..3)
+                        num2 = numalt.nextInt(0..3)
+                        while (num1 == num2) {
+                            num2 = numalt.nextInt(0..3)
+                        }
+                        num3 = numalt.nextInt(0..3)
+                        while (num3 == num2 || num3 == num1) {
+                            num3 = numalt.nextInt(0..3)
+                        }
+                        num4 = numalt.nextInt(0..3)
+                        while (num4 == num3 || num4 == num2 || num4 == num1) {
+                            num4 = numalt.nextInt(0..3)
+                        }
+                        txtOpcA.text = listPreguntas[num].listaOpciones[num1].respuesta
+                        txtOpcB.text = listPreguntas[num].listaOpciones[num2].respuesta
+                        txtOpcC.text = listPreguntas[num].listaOpciones[num3].respuesta
+                        txtOpcD.text = listPreguntas[num].listaOpciones[num4].respuesta
                         txtOpcA.setOnClickListener {
-                            if (txtOpcA.text==respCorrect){
+                            if (txtOpcA.text == respCorrect) {
                                 txtOpcA.setBackgroundColor(Color.parseColor("#00FF00"))
-                                txtOpcB.isEnabled=false
-                                txtOpcC.isEnabled=false
-                                txtOpcD.isEnabled=false
-                            }else{
+                                txtOpcB.isEnabled = false
+                                txtOpcC.isEnabled = false
+                                txtOpcD.isEnabled = false
+                                money += 1000
+                                MostrarPregunta(
+                                    listPreguntas,
+                                    this.txtOpcA
+                                )
+                            } else {
                                 txtOpcA.setBackgroundColor(Color.parseColor("#FF0000"))
-                                txtOpcB.isEnabled=false
-                                txtOpcC.isEnabled=false
-                                txtOpcD.isEnabled=false
+                                txtOpcB.isEnabled = false
+                                txtOpcC.isEnabled = false
+                                txtOpcD.isEnabled = false
+                                Reiniciar()
                             }
+                            binding.txtRankin.text = "$ " + money.toString()
                         }
                         txtOpcB.setOnClickListener {
-                            if (txtOpcB.text==respCorrect){
+                            if (txtOpcB.text == respCorrect) {
                                 txtOpcB.setBackgroundColor(Color.parseColor("#00FF00"))
-                                txtOpcA.isEnabled=false
-                                txtOpcC.isEnabled=false
-                                txtOpcD.isEnabled=false
-                            }else{
+                                txtOpcA.isEnabled = false
+                                txtOpcC.isEnabled = false
+                                txtOpcD.isEnabled = false
+                                money += 1000
+                                MostrarPregunta(
+                                    listPreguntas,
+                                    this.txtOpcB
+                                )
+                            } else {
                                 txtOpcB.setBackgroundColor(Color.parseColor("#FF0000"))
-                                txtOpcA.isEnabled=false
-                                txtOpcC.isEnabled=false
-                                txtOpcD.isEnabled=false
+                                txtOpcA.isEnabled = false
+                                txtOpcC.isEnabled = false
+                                txtOpcD.isEnabled = false
+                                Reiniciar()
                             }
+                            binding.txtRankin.text = "$ " + money.toString()
                         }
                         txtOpcC.setOnClickListener {
-                            if (txtOpcC.text==respCorrect){
+                            if (txtOpcC.text == respCorrect) {
                                 txtOpcC.setBackgroundColor(Color.parseColor("#00FF00"))
-                                txtOpcA.isEnabled=false
-                                txtOpcB.isEnabled=false
-                                txtOpcD.isEnabled=false
-                            }else{
+                                txtOpcA.isEnabled = false
+                                txtOpcB.isEnabled = false
+                                txtOpcD.isEnabled = false
+                                money += 1000
+                                MostrarPregunta(
+                                    listPreguntas,
+                                    this.txtOpcC
+                                )
+                            } else {
                                 txtOpcC.setBackgroundColor(Color.parseColor("#FF0000"))
-                                txtOpcA.isEnabled=false
-                                txtOpcB.isEnabled=false
-                                txtOpcD.isEnabled=false
+                                txtOpcA.isEnabled = false
+                                txtOpcB.isEnabled = false
+                                txtOpcD.isEnabled = false
+                                Reiniciar()
                             }
+                            binding.txtRankin.text = "$ " + money.toString()
                         }
                         txtOpcD.setOnClickListener {
-                            if (txtOpcD.text==respCorrect){
+                            if (txtOpcD.text == respCorrect) {
                                 txtOpcD.setBackgroundColor(Color.parseColor("#00FF00"))
-                                txtOpcA.isEnabled=false
-                                txtOpcB.isEnabled=false
-                                txtOpcC.isEnabled=false
-                            }else{
+                                txtOpcA.isEnabled = false
+                                txtOpcB.isEnabled = false
+                                txtOpcC.isEnabled = false
+                                money += 1000
+                                MostrarPregunta(
+                                    listPreguntas,
+                                    this.txtOpcD
+                                )
+                            } else {
                                 txtOpcD.setBackgroundColor(Color.parseColor("#FF0000"))
-                                txtOpcA.isEnabled=false
-                                txtOpcB.isEnabled=false
-                                txtOpcC.isEnabled=false
+                                txtOpcA.isEnabled = false
+                                txtOpcB.isEnabled = false
+                                txtOpcC.isEnabled = false
+                                Reiniciar()
                             }
+                            binding.txtRankin.text = "$ " + money.toString()
                         }
                     }
                 }
@@ -116,5 +164,55 @@ class JuegoPlay_Activity : AppCompatActivity() {
                 }
             })
         }
+    }
+
+    fun Reiniciar() {
+        Menu_Categorias_Activity.listCategorias = mutableListOf()
+        money = 0
+        binding.apply {
+            txtOpcA.isEnabled = true
+            txtOpcB.isEnabled = true
+            txtOpcC.isEnabled = true
+            txtOpcD.isEnabled = true
+        }
+        startActivity(Intent(this,Menu_Categorias_Activity::class.java))
+    }
+
+    fun MostrarPregunta(
+        listPregunt: MutableList<Preguntas>,
+        textView: TextView
+    ) {
+        var numalt = Random
+        var num = numalt.nextInt(1..listPregunt.size)
+        Handler().postDelayed({
+            num1 = numalt.nextInt(0..3)
+            num2 = numalt.nextInt(0..3)
+            while (num1 == num2) {
+                num2 = numalt.nextInt(0..3)
+            }
+            num3 = numalt.nextInt(0..3)
+            while (num3 == num2 || num3 == num1) {
+                num3 = numalt.nextInt(0..3)
+            }
+            num4 = numalt.nextInt(0..3)
+            while (num4 == num3 || num4 == num2 || num4 == num1) {
+                num4 = numalt.nextInt(0..3)
+            }
+            binding.apply {
+                txtPregunta.text = listPregunt[num].pregunta
+                respCorrect = listPregunt[num].respuestCorrct
+                textView.setBackgroundResource(R.drawable.fondo_opc)
+                txtOpcA.text = listPregunt[num].listaOpciones[num1].respuesta
+                txtOpcB.text = listPregunt[num].listaOpciones[num2].respuesta
+                txtOpcC.text = listPregunt[num].listaOpciones[num3].respuesta
+                txtOpcD.text = listPregunt[num].listaOpciones[num4].respuesta
+                txtOpcA.isEnabled = true
+                txtOpcB.isEnabled = true
+                txtOpcC.isEnabled = true
+                txtOpcD.isEnabled = true
+            }
+        }, 2000)
+
+
     }
 }
