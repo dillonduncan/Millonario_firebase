@@ -53,7 +53,7 @@ class Menu_Categorias_Activity : AppCompatActivity() {
     fun Ranking() {
         binding.apply {
             txtRankingMoney.text = "Dinero: $" + JuegoPlay_Activity.money
-            txtRankingCuestions.text = "Preguntas: " + JuegoPlay_Activity.cantPreguntas
+            txtRankingCuestions.text = "Preguntas: " + JuegoPlay_Activity.cantPreguntas+"/"+ JuegoPlay_Activity.listSize
         }
     }
 

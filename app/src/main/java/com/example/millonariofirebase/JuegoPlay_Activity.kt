@@ -54,6 +54,7 @@ class JuegoPlay_Activity : AppCompatActivity() {
                             }
                         }
                     }
+                    listSize=listPreguntas.size
                     var numalt = Random
                     var num = numalt.nextInt(1..listPreguntas.size)
                     respCorrect = listPreguntas[num].respuestCorrct
@@ -237,5 +238,6 @@ class JuegoPlay_Activity : AppCompatActivity() {
     companion object{
         var cantPreguntas:Int=0
         var money = 0
+        var listSize=0
     }
 }
