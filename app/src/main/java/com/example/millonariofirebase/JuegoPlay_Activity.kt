@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -30,7 +31,6 @@ class JuegoPlay_Activity : AppCompatActivity() {
     var num2 = 0
     var num3 = 0
     var num4 = 0
-    var money = 0
     var respCorrect = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,11 +78,13 @@ class JuegoPlay_Activity : AppCompatActivity() {
                         txtOpcD.text = listPreguntas[num].listaOpciones[num4].respuesta
                         txtOpcA.setOnClickListener {
                             if (txtOpcA.text == respCorrect) {
+                                SonidoGano()
                                 txtOpcA.setBackgroundColor(Color.parseColor("#00FF00"))
                                 txtOpcB.isEnabled = false
                                 txtOpcC.isEnabled = false
                                 txtOpcD.isEnabled = false
                                 money += 1000
+                                cantPreguntas++
                                 MostrarPregunta(
                                     listPreguntas,
                                     this.txtOpcA
@@ -92,17 +94,20 @@ class JuegoPlay_Activity : AppCompatActivity() {
                                 txtOpcB.isEnabled = false
                                 txtOpcC.isEnabled = false
                                 txtOpcD.isEnabled = false
+                                SonidoPerdio()
                                 Reiniciar()
                             }
                             binding.txtRankin.text = "$ " + money.toString()
                         }
                         txtOpcB.setOnClickListener {
                             if (txtOpcB.text == respCorrect) {
+                                SonidoGano()
                                 txtOpcB.setBackgroundColor(Color.parseColor("#00FF00"))
                                 txtOpcA.isEnabled = false
                                 txtOpcC.isEnabled = false
                                 txtOpcD.isEnabled = false
                                 money += 1000
+                                cantPreguntas++
                                 MostrarPregunta(
                                     listPreguntas,
                                     this.txtOpcB
@@ -112,17 +117,20 @@ class JuegoPlay_Activity : AppCompatActivity() {
                                 txtOpcA.isEnabled = false
                                 txtOpcC.isEnabled = false
                                 txtOpcD.isEnabled = false
+                                SonidoPerdio()
                                 Reiniciar()
                             }
                             binding.txtRankin.text = "$ " + money.toString()
                         }
                         txtOpcC.setOnClickListener {
                             if (txtOpcC.text == respCorrect) {
+                                SonidoGano()
                                 txtOpcC.setBackgroundColor(Color.parseColor("#00FF00"))
                                 txtOpcA.isEnabled = false
                                 txtOpcB.isEnabled = false
                                 txtOpcD.isEnabled = false
                                 money += 1000
+                                cantPreguntas++
                                 MostrarPregunta(
                                     listPreguntas,
                                     this.txtOpcC
@@ -131,6 +139,7 @@ class JuegoPlay_Activity : AppCompatActivity() {
                                 txtOpcC.setBackgroundColor(Color.parseColor("#FF0000"))
                                 txtOpcA.isEnabled = false
                                 txtOpcB.isEnabled = false
+                                SonidoPerdio()
                                 txtOpcD.isEnabled = false
                                 Reiniciar()
                             }
@@ -138,11 +147,13 @@ class JuegoPlay_Activity : AppCompatActivity() {
                         }
                         txtOpcD.setOnClickListener {
                             if (txtOpcD.text == respCorrect) {
+                                SonidoGano()
                                 txtOpcD.setBackgroundColor(Color.parseColor("#00FF00"))
                                 txtOpcA.isEnabled = false
                                 txtOpcB.isEnabled = false
                                 txtOpcC.isEnabled = false
                                 money += 1000
+                                cantPreguntas++
                                 MostrarPregunta(
                                     listPreguntas,
                                     this.txtOpcD
@@ -152,6 +163,7 @@ class JuegoPlay_Activity : AppCompatActivity() {
                                 txtOpcA.isEnabled = false
                                 txtOpcB.isEnabled = false
                                 txtOpcC.isEnabled = false
+                                SonidoPerdio()
                                 Reiniciar()
                             }
                             binding.txtRankin.text = "$ " + money.toString()
@@ -167,17 +179,26 @@ class JuegoPlay_Activity : AppCompatActivity() {
     }
 
     fun Reiniciar() {
-        Menu_Categorias_Activity.listCategorias = mutableListOf()
-        money = 0
-        binding.apply {
-            txtOpcA.isEnabled = true
-            txtOpcB.isEnabled = true
-            txtOpcC.isEnabled = true
-            txtOpcD.isEnabled = true
-        }
-        startActivity(Intent(this,Menu_Categorias_Activity::class.java))
+        Handler().postDelayed({
+            Menu_Categorias_Activity.listCategorias = mutableListOf()
+            binding.apply {
+                txtOpcA.isEnabled = true
+                txtOpcB.isEnabled = true
+                txtOpcC.isEnabled = true
+                txtOpcD.isEnabled = true
+            }
+            Toast.makeText(this, "Juego terminado", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, Menu_Categorias_Activity::class.java))
+        },4000)
     }
-
+    fun SonidoPerdio(){
+        val mpMusic = MediaPlayer.create(this, R.raw.sonidoperdio)
+        mpMusic.start()
+    }
+    fun SonidoGano(){
+        val mpMusic = MediaPlayer.create(this, R.raw.sonidogano)
+        mpMusic.start()
+    }
     fun MostrarPregunta(
         listPregunt: MutableList<Preguntas>,
         textView: TextView
@@ -211,8 +232,10 @@ class JuegoPlay_Activity : AppCompatActivity() {
                 txtOpcC.isEnabled = true
                 txtOpcD.isEnabled = true
             }
-        }, 2000)
-
-
+        }, 3000)
+    }
+    companion object{
+        var cantPreguntas:Int=0
+        var money = 0
     }
 }

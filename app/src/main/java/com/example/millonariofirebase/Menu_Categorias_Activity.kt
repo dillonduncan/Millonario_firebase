@@ -1,6 +1,7 @@
 package com.example.millonariofirebase
 
 import android.content.Intent
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -40,7 +41,20 @@ class Menu_Categorias_Activity : AppCompatActivity() {
         binding.txtPreguntAdd.setOnClickListener { CambiarRegistroPreguntas() }
         binding.btnRegistrarPreguntas.setOnClickListener { CambiarRegistroPreguntas() }
         binding.btnComenzar.setOnClickListener { PlayJuego() }
+        Ranking()
+        ReproducirMusica()
+    }
 
+    fun ReproducirMusica() {2
+        val mpMusic = MediaPlayer.create(this, R.raw.musiquitaprincipal)
+        mpMusic.start()
+    }
+
+    fun Ranking() {
+        binding.apply {
+            txtRankingMoney.text = "Dinero: $" + JuegoPlay_Activity.money
+            txtRankingCuestions.text = "Preguntas: " + JuegoPlay_Activity.cantPreguntas
+        }
     }
 
     fun PlayJuego() {
@@ -93,6 +107,7 @@ class Menu_Categorias_Activity : AppCompatActivity() {
             })
         }
     }
+
     companion object {
         var listCategorias: MutableList<String> = mutableListOf()
     }

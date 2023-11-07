@@ -1,6 +1,7 @@
 package com.example.millonariofirebase
 
 import android.content.Intent
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -16,10 +17,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         hideSystemUI()
         Timer()
+        ReproducirMusica()
+    }
+    fun ReproducirMusica(){
+        val mpMusic=MediaPlayer.create(this,R.raw.musiquitaprincipal)
+        mpMusic.start()
     }
     fun Timer(){
-        var time=8
-        var timer=object: CountDownTimer(8000,1000){
+        var time=6
+        var timer=object: CountDownTimer(6000,1000){
             override fun onTick(millisUntilFinished: Long) {
                 time--
             }
