@@ -46,6 +46,19 @@
         app:layout_constraintLeft_toLeftOf="@+id/txtRankingMoney"
         app:layout_constraintRight_toRightOf="@+id/txtRankingMoney"
         app:layout_constraintTop_toBottomOf="@+id/txtRankingMoney"/>
+    <TextView
+        android:id="@+id/txtTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:gravity="center"
+        android:hint="Tiempo: 0"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@+id/txtRankingCuestions"
+        app:layout_constraintRight_toRightOf="@+id/txtRankingCuestions"
+        app:layout_constraintTop_toBottomOf="@+id/txtRankingCuestions"/>
 
     <ImageView
         android:id="@+id/btnRegistrarCategorias"
@@ -95,7 +108,7 @@
         android:id="@+id/imageView2"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
@@ -134,12 +147,12 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCategorias"
         android:layout_width="match_parent"
-        android:layout_height="380dp"
+        android:layout_height="350dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         android:paddingStart="10dp"
-        android:paddingTop="10dp"
+        android:paddingTop="5dp"
         android:paddingEnd="10dp"
         android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"

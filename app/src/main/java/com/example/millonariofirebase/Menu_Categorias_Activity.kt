@@ -28,32 +28,35 @@ class Menu_Categorias_Activity : AppCompatActivity() {
     lateinit var categoriasRef: DatabaseReference
     lateinit var adaptador: AdaptadorCategorias
     lateinit var database: FirebaseDatabase
+    lateinit var mpMusic: MediaPlayer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMenuCategoriasBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        ReproducirMusica()
         binding.rvCategorias.layoutManager = LinearLayoutManager(this)
         database = FirebaseDatabase.getInstance()
         categoriasRef = database.getReference("Categorias")
-        binding.txtCategAdd.setOnClickListener { CambiarRegistroCategorias() }
-        binding.btnRegistrarCategorias.setOnClickListener { CambiarRegistroCategorias() }
+        binding.txtCategAdd.setOnClickListener { CambiarRegistroCategorias();mpMusic.stop() }
+        binding.btnRegistrarCategorias.setOnClickListener { CambiarRegistroCategorias();mpMusic.stop() }
         ObtenerCategorias()
-        binding.txtPreguntAdd.setOnClickListener { CambiarRegistroPreguntas() }
-        binding.btnRegistrarPreguntas.setOnClickListener { CambiarRegistroPreguntas() }
-        binding.btnComenzar.setOnClickListener { PlayJuego() }
+        binding.txtPreguntAdd.setOnClickListener { CambiarRegistroPreguntas();mpMusic.stop() }
+        binding.btnRegistrarPreguntas.setOnClickListener { CambiarRegistroPreguntas();mpMusic.stop() }
+        binding.btnComenzar.setOnClickListener { PlayJuego();mpMusic.stop() }
         Ranking()
-        ReproducirMusica()
     }
 
-    fun ReproducirMusica() {2
-        val mpMusic = MediaPlayer.create(this, R.raw.musiquitaprincipal)
+    fun ReproducirMusica() {
+        mpMusic = MediaPlayer.create(this, R.raw.musiquitaprincipal)
         mpMusic.start()
     }
 
     fun Ranking() {
         binding.apply {
             txtRankingMoney.text = "Dinero: $" + JuegoPlay_Activity.money
-            txtRankingCuestions.text = "Preguntas: " + JuegoPlay_Activity.cantPreguntas+"/"+ JuegoPlay_Activity.listSize
+            txtRankingCuestions.text =
+                "Preguntas: " + JuegoPlay_Activity.cantPreguntas + "/" + JuegoPlay_Activity.listSize
+            txtTime.text = "Tiempo: " + JuegoPlay_Activity.time.toString() + "s"
         }
     }
 

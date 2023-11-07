@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.widget.TextView
 import android.widget.Toast
@@ -20,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.getValue
 import kotlinx.coroutines.launch
+import kotlin.concurrent.timer
 import kotlin.random.Random
 import kotlin.random.nextInt
 
@@ -39,6 +41,20 @@ class JuegoPlay_Activity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance()
         preguntasRef = database.getReference("Preguntas")
         ObtenerPreguntasRest()
+        Cronometro()
+    }
+
+    fun Cronometro() {
+        var timer = object : CountDownTimer(5000, 1000) {
+            override fun onTick(p0: Long) {
+                time++
+            }
+
+            override fun onFinish() {
+                this.start()
+            }
+        }
+        timer.start()
     }
 
     fun ObtenerPreguntasRest() {
@@ -54,7 +70,7 @@ class JuegoPlay_Activity : AppCompatActivity() {
                             }
                         }
                     }
-                    listSize=listPreguntas.size
+                    listSize = listPreguntas.size
                     var numalt = Random
                     var num = numalt.nextInt(1..listPreguntas.size)
                     respCorrect = listPreguntas[num].respuestCorrct
@@ -190,16 +206,19 @@ class JuegoPlay_Activity : AppCompatActivity() {
             }
             Toast.makeText(this, "Juego terminado", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, Menu_Categorias_Activity::class.java))
-        },4000)
+        }, 4000)
     }
-    fun SonidoPerdio(){
+
+    fun SonidoPerdio() {
         val mpMusic = MediaPlayer.create(this, R.raw.sonidoperdio)
         mpMusic.start()
     }
-    fun SonidoGano(){
+
+    fun SonidoGano() {
         val mpMusic = MediaPlayer.create(this, R.raw.sonidogano)
         mpMusic.start()
     }
+
     fun MostrarPregunta(
         listPregunt: MutableList<Preguntas>,
         textView: TextView
@@ -235,9 +254,11 @@ class JuegoPlay_Activity : AppCompatActivity() {
             }
         }, 3000)
     }
-    companion object{
-        var cantPreguntas:Int=0
+
+    companion object {
+        var cantPreguntas: Int = 0
         var money = 0
-        var listSize=0
+        var listSize = 0
+        var time = 0
     }
 }

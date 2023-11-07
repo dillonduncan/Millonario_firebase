@@ -2,13 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="#0004003F">
        <LinearLayout
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:orientation="vertical">
            <CheckBox
-               android:background="#04003F"
+               android:background="#0004003F"
                android:id="@+id/cbCategorias"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
